@@ -24,12 +24,13 @@ public class FileTree extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public static File staticFile = null;
+	public static DefaultMutableTreeNode selectedNode;
 	private FileSystemView fsv = FileSystemView.getFileSystemView();
-	private HashMap<DefaultMutableTreeNode, File> map = new HashMap<DefaultMutableTreeNode, File>();
+	public HashMap<DefaultMutableTreeNode, File> map = new HashMap<DefaultMutableTreeNode, File>();
 	
 	View view = null;
 	
-	private JTree tree;
+	public JTree tree;
 	private File[] temp;
 	private File[] fileList = File.listRoots();
 	private JScrollPane jsPane = null;
@@ -76,27 +77,30 @@ public class FileTree extends JPanel {
 	tree.setRootVisible(true);
 	tree.addTreeSelectionListener(new TreeSelectionListener() {
 	    public void valueChanged(TreeSelectionEvent evt) {
-	    	DefaultMutableTreeNode selectedNode;
-	    	if( (selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent()) != null){
+	    	if( tree.getLastSelectedPathComponent() != null && !tree.getLastSelectedPathComponent().toString().equals("这台电脑")){     //判断用于保证用户点到根节点“这台电脑”不会抛出异常
+	    		selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 	    		staticFile = map.get(selectedNode);
-	    		view.setVisible(false);
-	    		jsPane.setVisible(false);
-	    		remove(view);
-	    		remove(jsPane);
-	    		view.clear();
-	    		view = null;
-	    		jsPane = null;
-	    		
-	    		view = new View();
-	    		view.setVisible(true);
-	    		view.setBounds(205, 0, 670, 400);
-	    		//add(view);
-	    		jsPane = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-	    		jsPane.setBounds(205, 0, 675, 400);
-	    		add(jsPane);
-	    		jsPane.setVisible(true);
-	    		jsPane.setVisible(false);
-	    		jsPane.setVisible(true);
+	    		if(staticFile.isDirectory()){
+	    			refreshView();
+//	    		view.setVisible(false);
+//	    		jsPane.setVisible(false);
+//	    		remove(view);
+//	    		remove(jsPane);
+//	    		view.clear();
+//	    		view = null;
+//	    		jsPane = null;
+//	    		
+//	    		view = new View();
+//	    		view.setVisible(true);
+//	    		view.setBounds(205, 0, 670, 400);
+//	    		//add(view);
+//	    		jsPane = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//	    		jsPane.setBounds(205, 0, 675, 400);
+//	    		add(jsPane);
+//	    		jsPane.setVisible(true);
+//	    		jsPane.setVisible(false);
+//	    		jsPane.setVisible(true);
+	    		}
 	    	}
 	    }
 	});
@@ -105,7 +109,7 @@ public class FileTree extends JPanel {
 		@Override
 		public void treeExpanded(TreeExpansionEvent event) {
 			// TODO Auto-generated method stub
-	    	DefaultMutableTreeNode selectedNode;
+	    	//DefaultMutableTreeNode selectedNode;
 	    	selectedNode = (DefaultMutableTreeNode)event.getPath().getLastPathComponent();
     		File file = map.get(selectedNode);
 	    	if(file != null && file.isDirectory()){
@@ -140,6 +144,7 @@ public class FileTree extends JPanel {
 			// TODO Auto-generated method stub
 			
 		}
+
 		
 	});
 	this.tree.setCellRenderer(new MyTreeCellRenderer());
@@ -150,9 +155,6 @@ public class FileTree extends JPanel {
 	jScrollPane.setVisible(true);
 	
 	view = new View();
-	//view.setBounds(205, 0, 670, 400);
-	//add(view);
-	//view.setPreferredSize(new Dimension(600, showStu.y + 50));
 	view.setVisible(true);
 	
 	
@@ -162,6 +164,27 @@ public class FileTree extends JPanel {
 	jsPane.setVisible(true);
 	
 	}
+	
+	public void refreshView(){                            //-刷新View面板
+		view.setVisible(false);
+		jsPane.setVisible(false);
+		remove(view);
+		remove(jsPane);
+		view.clear();
+		view = null;
+		jsPane = null;
+		
+		view = new View();
+		view.setVisible(true);
+		view.setBounds(205, 0, 670, 400);
+		//add(view);
+		jsPane = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		jsPane.setBounds(205, 0, 675, 400);
+		add(jsPane);
+		jsPane.setVisible(true);
+		jsPane.setVisible(false);
+		jsPane.setVisible(true);
+	}                                                    //-
 
 
 }
