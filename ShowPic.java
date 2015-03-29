@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,6 +23,8 @@ public class ShowPic extends JPanel {
 	private Image image = null;
 	private int width = 0, height = 0;
 	private String name = null;
+	
+	public static LinkedList<File> pictures = new LinkedList<File>();
 	
 
 	public ShowPic(){
@@ -60,8 +63,12 @@ public class ShowPic extends JPanel {
 				// TODO Auto-generated method stub
 				if(!getBackground().equals( new Color(48, 194 , 243))){
 					setBackground(new Color(48, 194 , 243));
+					pictures.add(file);
 				}
-				else setBackground(null);
+				else {
+					setBackground(null);
+					pictures.remove(file);
+				}
 				
 			}
 

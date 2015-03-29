@@ -35,7 +35,7 @@ public class View extends JPanel {
 		if(fileList != null){
 		
 		for(int i = 0; i < fileList.length; i++){
-			if(fileList[i].getName().endsWith(".JPG") || fileList[i].getName().endsWith(".jpg") || fileList[i].getName().endsWith(".PNG") || fileList[i].getName().endsWith(".png") || fileList[i].getName().endsWith(".GIF") || fileList[i].getName().endsWith(".gif")){
+			if(fileList[i].getName().endsWith(".JPG") || fileList[i].getName().endsWith(".jpg") || fileList[i].getName().endsWith(".jpeg") || fileList[i].getName().endsWith(".PNG") || fileList[i].getName().endsWith(".png") || fileList[i].getName().endsWith(".GIF") || fileList[i].getName().endsWith(".gif")){
 				showPics[i] = new ShowPic(fileList[i]);
 				//System.out.println(this.getWidth());
 				showPics[i].setBounds(dx + 5, dy + 5, width, length);
@@ -71,6 +71,7 @@ public class View extends JPanel {
 	public void clear(){
 		if(fileList != null){
 		for(int i = 0; i < fileList.length; i++){
+			ShowPic.pictures.clear();
 			showPics[i] = null;
 			fileList[i] = null;
 		}
