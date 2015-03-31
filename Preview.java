@@ -24,7 +24,8 @@ public class Preview extends JFrame{
 	private JButton jbtNext = new JButton("Next");
 	private JButton jbtPre = new JButton("Previous");
 	private JButton jbtAuto = new JButton("Start");
-	private Timer timer = null;
+	private JButton jbtExit = new JButton("Exit");
+ 	private Timer timer = null;
 	private ShowImage showImage = null;
 	private JScrollPane jscrollPanel = null;
 	private File[] fileList = null;
@@ -206,7 +207,21 @@ public class Preview extends JFrame{
 			
 		});
 		
+		jbtExit.setBounds(400, 0, 100, 50);
+		add(jbtExit);
+		jbtExit.setVisible(true);
+		jbtExit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+			}
+			
+		});
+		
 	}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	private boolean isPicture(File file){

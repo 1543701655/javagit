@@ -25,12 +25,12 @@ public class FileTree extends JPanel {
 	
 	public static File staticFile = null;
 	public static DefaultMutableTreeNode selectedNode;
-	private FileSystemView fsv = FileSystemView.getFileSystemView();
+	public static FileSystemView fsv = FileSystemView.getFileSystemView();
 	public HashMap<DefaultMutableTreeNode, File> map = new HashMap<DefaultMutableTreeNode, File>();
 	
 	View view = null;
 	
-	public JTree tree;
+	public static JTree tree;
 	private File[] temp;
 	private File[] fileList = File.listRoots();
 	private JScrollPane jsPane = null;
@@ -147,7 +147,7 @@ public class FileTree extends JPanel {
 
 		
 	});
-	this.tree.setCellRenderer(new MyTreeCellRenderer());
+	FileTree.tree.setCellRenderer(new MyTreeCellRenderer());
 	JScrollPane jScrollPane = new JScrollPane(tree);
 	jScrollPane.setBounds(0, 0, 200, 400);
 	
